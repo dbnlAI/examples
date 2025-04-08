@@ -12,7 +12,7 @@ jobs:
       matrix:
         python_version: ['3.11', '3.12']
         include:
-          - notebook_dir: 'quick-start'
+          - notebook_dir: 'quickstart'
             notebook_file: 'main.ipynb'
     uses: ./.github/workflows/run-example.yml
     with:
@@ -20,6 +20,8 @@ jobs:
       notebook_file: ${{ matrix.notebook_file }}
       python_version: ${{ matrix.python_version }}
       environment: dev
+      runs_on: test-examples-dev
+      package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@main
     secrets: inherit
     concurrency:
       group: dev-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
@@ -31,7 +33,7 @@ jobs:
       matrix:
         python_version: ['3.11', '3.12']
         include:
-          - notebook_dir: 'quick-start'
+          - notebook_dir: 'quickstart'
             notebook_file: 'main.ipynb'
     uses: ./.github/workflows/run-example.yml
     with:
@@ -39,6 +41,8 @@ jobs:
       notebook_file: ${{ matrix.notebook_file }}
       python_version: ${{ matrix.python_version }}
       environment: staging
+      runs_on: test-examples-staging
+      package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22
     secrets: inherit
     concurrency:
       group: staging-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
@@ -50,7 +54,7 @@ jobs:
       matrix:
         python_version: ['3.11', '3.12']
         include:
-          - notebook_dir: 'quick-start'
+          - notebook_dir: 'quickstart'
             notebook_file: 'main.ipynb'
     uses: ./.github/workflows/run-example.yml
     with:
@@ -58,6 +62,8 @@ jobs:
       notebook_file: ${{ matrix.notebook_file }}
       python_version: ${{ matrix.python_version }}
       environment: prod
+      runs_on: test-examples-prod
+      package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.21
     secrets: inherit
     concurrency:
       group: prod-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}

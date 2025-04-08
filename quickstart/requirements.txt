@@ -1,4 +1,4 @@
-dbnl[eval]
+dbnl
 jupyter
 pandas[pyarrow]
 openai

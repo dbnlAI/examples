@@ -15,11 +15,18 @@ on:
       environment:
         required: true
         type: string
+      runs_on:
+        required: true
+        type: string
+      package_spec:
+        required: true
+        type: string
+        description: "The full package specification to use (e.g., 'dbnl[eval]', 'dbnl', or a Git URL)"
 
 jobs:
   run-notebook:
     name: "Run Example: ${{ inputs.notebook_dir }}/${{ inputs.notebook_file }} - ${{ inputs.python_version }} - ${{ github.run_id }}"
-    runs-on: ${{ (inputs.environment == 'dev' && 'test-examples-dev') || (inputs.environment == 'staging' && 'test-examples-staging') || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.runs_on }}
     environment: ${{ inputs.environment }}
     env:
       ENVIRONMENT: ${{ inputs.environment }}
@@ -28,24 +35,6 @@ jobs:
       PYTHON_VERSION: ${{ inputs.python_version }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set SDK Version
-        id: set-version
-        run: |
-          case "${{ inputs.environment }}" in
-            "prod")
-              echo "sdk_version=dbnl[eval] @ git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.21" >> $GITHUB_OUTPUT
-              ;;
-            "staging")
-              echo "sdk_version=dbnl[eval] @ git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22" >> $GITHUB_OUTPUT
-              ;;
-            "dev")
-              echo "sdk_version=dbnl[eval] @ git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@main" >> $GITHUB_OUTPUT
-              ;;
-            *)
-              echo "sdk_version=dbnl[eval]" >> $GITHUB_OUTPUT
-              ;;
-          esac
 
       - uses: astral-sh/setup-uv@v5
         with:
@@ -66,9 +55,21 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          # Create a temporary requirements file with the correct SDK version
-          sed "s|dbnl\[eval\]|${{ steps.set-version.outputs.sdk_version }}|" requirements.txt > requirements.tmp
-          uv pip install -r requirements.tmp
+          # Determine which package specification to use
+          if grep -q "dbnl\[eval\]" requirements.txt; then
+            OLD_SPEC="dbnl\[eval\]"
+          elif grep -q "^dbnl" requirements.txt; then
+            OLD_SPEC="dbnl"
+          else
+            echo "Error: No dbnl package found in requirements.txt"
+            exit 1
+          fi
+
+          # Replace the package with the new specification
+          sed "s|$OLD_SPEC|${{ inputs.package_spec }}|" requirements.txt > requirements.tmp
+          mv requirements.tmp requirements.txt
+
+          uv pip install -r requirements.txt
         working-directory: ${{ env.NOTEBOOK_DIR }}
 
       - name: Execute Notebook
