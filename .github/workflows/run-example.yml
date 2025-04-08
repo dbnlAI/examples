@@ -1,0 +1,82 @@
+name: Run Example (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      notebook_dir:
+        required: true
+        type: string
+      notebook_file:
+        required: true
+        type: string
+      python_version:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+
+jobs:
+  run-notebook:
+    name: "Run Example: ${{ inputs.notebook_dir }}/${{ inputs.notebook_file }} - ${{ inputs.python_version }} - ${{ github.run_id }}"
+    runs-on: ${{ (inputs.environment == 'dev' && 'test-examples-dev') || (inputs.environment == 'staging' && 'test-examples-staging') || 'ubuntu-latest' }}
+    environment: ${{ inputs.environment }}
+    env:
+      ENVIRONMENT: ${{ inputs.environment }}
+      NOTEBOOK_DIR: ${{ inputs.notebook_dir }}
+      NOTEBOOK_FILE: ${{ inputs.notebook_file }}
+      PYTHON_VERSION: ${{ inputs.python_version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set SDK Version
+        id: set-version
+        run: |
+          case "${{ inputs.environment }}" in
+            "prod")
+              echo "sdk_version=dbnl[eval] @ git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.21" >> $GITHUB_OUTPUT
+              ;;
+            "staging")
+              echo "sdk_version=dbnl[eval] @ git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22" >> $GITHUB_OUTPUT
+              ;;
+            "dev")
+              echo "sdk_version=dbnl[eval] @ git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@main" >> $GITHUB_OUTPUT
+              ;;
+            *)
+              echo "sdk_version=dbnl[eval]" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.4.x"
+          python-version: ${{ inputs.python_version }}
+
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_DBNL_SDK }}
+
+      - name: Additional SSH Setup
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          echo "Setup additional SSH configuration for dev environment"
+
+      - name: Install Dependencies
+        run: |
+          # Create a temporary requirements file with the correct SDK version
+          sed "s|dbnl\[eval\]|${{ steps.set-version.outputs.sdk_version }}|" requirements.txt > requirements.tmp
+          uv pip install -r requirements.tmp
+        working-directory: ${{ env.NOTEBOOK_DIR }}
+
+      - name: Execute Notebook
+        env:
+          DBNL_API_TOKEN: ${{ secrets.DBNL_API_TOKEN }}
+          DBNL_API_URL: ${{ vars.DBNL_API_URL }}
+          DBNL_APP_URL: ${{ vars.DBNL_APP_URL }}
+          DBNL_LOG_LEVEL: DEBUG
+        run: |
+          uv run jupyter nbconvert --to notebook --execute "${NOTEBOOK_FILE}" --stdout > /dev/null
+        working-directory: ${{ env.NOTEBOOK_DIR }}

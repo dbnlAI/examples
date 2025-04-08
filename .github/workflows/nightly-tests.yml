@@ -1,0 +1,64 @@
+name: "Nightly Example Runs"
+
+on:
+  schedule:
+    - cron: '30 8 * * *'  # Runs daily at 08:30 UTC
+  workflow_dispatch:
+
+jobs:
+  dev:
+    name: "Python ${{ matrix.python_version }} | Notebook Path: ${{ matrix.notebook_dir }}/${{ matrix.notebook_file }} | dev"
+    strategy:
+      matrix:
+        python_version: ['3.11', '3.12']
+        include:
+          - notebook_dir: 'quick-start'
+            notebook_file: 'main.ipynb'
+    uses: ./.github/workflows/run-example.yml
+    with:
+      notebook_dir: ${{ matrix.notebook_dir }}
+      notebook_file: ${{ matrix.notebook_file }}
+      python_version: ${{ matrix.python_version }}
+      environment: dev
+    secrets: inherit
+    concurrency:
+      group: dev-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
+      cancel-in-progress: true
+
+  staging:
+    name: "Python ${{ matrix.python_version }} | Notebook Path: ${{ matrix.notebook_dir }}/${{ matrix.notebook_file }} | staging"
+    strategy:
+      matrix:
+        python_version: ['3.11', '3.12']
+        include:
+          - notebook_dir: 'quick-start'
+            notebook_file: 'main.ipynb'
+    uses: ./.github/workflows/run-example.yml
+    with:
+      notebook_dir: ${{ matrix.notebook_dir }}
+      notebook_file: ${{ matrix.notebook_file }}
+      python_version: ${{ matrix.python_version }}
+      environment: staging
+    secrets: inherit
+    concurrency:
+      group: staging-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
+      cancel-in-progress: true
+
+  prod:
+    name: "Python ${{ matrix.python_version }} | Notebook Path: ${{ matrix.notebook_dir }}/${{ matrix.notebook_file }} | prod"
+    strategy:
+      matrix:
+        python_version: ['3.11', '3.12']
+        include:
+          - notebook_dir: 'quick-start'
+            notebook_file: 'main.ipynb'
+    uses: ./.github/workflows/run-example.yml
+    with:
+      notebook_dir: ${{ matrix.notebook_dir }}
+      notebook_file: ${{ matrix.notebook_file }}
+      python_version: ${{ matrix.python_version }}
+      environment: prod
+    secrets: inherit
+    concurrency:
+      group: prod-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
+      cancel-in-progress: true
