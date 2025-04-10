@@ -68,6 +68,7 @@ jobs:
           # Replace the package with the new specification
           sed "s|$OLD_SPEC|${{ inputs.package_spec }}|" requirements.txt > requirements.tmp
           mv requirements.tmp requirements.txt
+          echo "Package specification updated to: ${{ inputs.package_spec }} in ${{ env.NOTEBOOK_DIR }}/requirements.txt"
 
           uv pip install -r requirements.txt
         working-directory: ${{ env.NOTEBOOK_DIR }}

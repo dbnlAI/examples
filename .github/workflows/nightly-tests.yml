@@ -20,7 +20,7 @@ jobs:
       notebook_file: ${{ matrix.notebook_file }}
       python_version: ${{ matrix.python_version }}
       environment: dev
-      runs_on: test-examples-dev
+      runs_on: dbnlai-dev
       package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@main
     secrets: inherit
     concurrency:
@@ -40,7 +40,7 @@ jobs:
       notebook_dir: ${{ matrix.notebook_dir }}
       notebook_file: ${{ matrix.notebook_file }}
       python_version: ${{ matrix.python_version }}
-      environment: staging
+      environment: dbnlai-staging
       runs_on: test-examples-staging
       package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22
     secrets: inherit
@@ -62,7 +62,7 @@ jobs:
       notebook_file: ${{ matrix.notebook_file }}
       python_version: ${{ matrix.python_version }}
       environment: prod
-      runs_on: test-examples-prod
+      runs_on: ubuntu-latest
       package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.21
     secrets: inherit
     concurrency:
