@@ -13,67 +13,52 @@ jupyter:
     name: python3
 ---
 
+### Import Modules
+
 ```python
 from datetime import datetime
 
 import dbnl
 import pandas as pd
+```
 
+
+### Load Sample Datasets
+
+```python
 COLUMN_TYPES = {0: str, 'happiness_score': 'category', 'urgency_score': 'category'}
-
-# Load sample datasets
 dataset_1 = pd.read_csv('data/dataset_1.csv', index_col=0, dtype=COLUMN_TYPES)
 dataset_2 = pd.read_csv('data/dataset_2.csv', index_col=0, dtype=COLUMN_TYPES)
 ```
 
+### Login to `dbnl` 
 
 ```python
-# Login to dbnl
 dbnl.login()
 ```
 
+### Create New Project 
+
 ```python
-# Create or get a project
 now = datetime.now().isoformat()
-project = dbnl.get_or_create_project(name=f"hello-world-demo-{now}")
+project = dbnl.get_or_create_project(name=f"quickstart-{now}")
 ```
 
-```python
-# Submit run, set it as baseline, then submit another run, and start a test session
-run = dbnl.report_run_with_results(project=project, display_name="Dataset 1 Run", column_data=dataset_1.reset_index())
-dbnl.set_run_as_baseline(run=run)
-run = dbnl.report_run_with_results(project=project, display_name="Dataset 2 Run", column_data=dataset_2.reset_index())
-```
+### Create Run and Report Results
 
 ```python
-# Load sample datasets
-dataset_1 = pd.read_csv('data/dataset_1.csv', index_col=0, dtype=COLUMN_TYPES)
-dataset_2 = pd.read_csv('data/dataset_2.csv', index_col=0, dtype=COLUMN_TYPES)
-```
-
-```python
-# Login to dbnl
-dbnl.login()
-```
-
-```python
-# Create or get a project
-now = datetime.now().isoformat()
-project = dbnl.get_or_create_project(name=f"hello-world-demo-{now}")
-```
-
-```python
-# Submit run
 run = dbnl.report_run_with_results(project=project, display_name="Dataset 1 Run", column_data=dataset_1.reset_index())
 ```
 
+### Set Run as Baseline
+
 ```python
-# Set it as baseline
 dbnl.set_run_as_baseline(run=run)
 ```
 
+### Create another Run and Start a Test Session
+
 ```python
-# Submit another run, and start a test session
 run = dbnl.report_run_with_results_and_start_test_session(project=project, display_name="Dataset 2 Run", column_data=dataset_2.reset_index())
 ```
 

@@ -10,8 +10,9 @@ repos:
     rev: v0.3.3
     hooks:
     -   id: ruff
-        args: [--fix]
+        args: [--fix, --line-length=88]
     -   id: ruff-format
+        args: [--line-length=88]
 
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -19,5 +20,6 @@ repos:
     -   id: mixed-line-ending
         args: [--fix=lf]
     -   id: trailing-whitespace
+        exclude: ^.*\.md$
     -   id: check-yaml
     -   id: check-added-large-files
