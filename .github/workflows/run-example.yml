@@ -22,10 +22,14 @@ on:
         required: true
         type: string
         description: "The full package specification to use (e.g., 'dbnl[eval]', 'dbnl', or a Git URL)"
+      branch:
+        required: true
+        type: string
+        description: "The branch to checkout of the examples repository"
 
 jobs:
   run-notebook:
-    name: "Run Example: ${{ inputs.notebook_dir }}/${{ inputs.notebook_file }} - ${{ inputs.python_version }} - ${{ github.run_id }}"
+    name: "${{ inputs.environment }} | ${{ inputs.python_version }} | ${{ inputs.notebook_dir }}/${{ inputs.notebook_file }} - ${{ github.run_id }}"
     runs-on: ${{ inputs.runs_on }}
     environment: ${{ inputs.environment }}
     env:
@@ -35,6 +39,8 @@ jobs:
       PYTHON_VERSION: ${{ inputs.python_version }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
 
       - uses: astral-sh/setup-uv@v5
         with:
