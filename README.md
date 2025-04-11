@@ -38,4 +38,3 @@ This repository contains example Jupyter notebooks demonstrating specific `dbnl`
    ```bash
    jupytext --set-formats ipynb,md your-notebook.ipynb
    ```
-

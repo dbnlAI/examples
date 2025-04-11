@@ -3,8 +3,8 @@ repos:
     rev: v1.16.7
     hooks:
     -   id: jupytext
-        args: [--sync]
-        additional_dependencies: [jupyter]
+        args: [--sync, --pipe, black]
+        additional_dependencies: [jupyter, black==23.3.0]
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.3
