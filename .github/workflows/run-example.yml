@@ -86,5 +86,5 @@ jobs:
           DBNL_APP_URL: ${{ vars.DBNL_APP_URL }}
           DBNL_LOG_LEVEL: DEBUG
         run: |
-          uv run jupyter nbconvert --to notebook --execute "${NOTEBOOK_FILE}" --stdout > /dev/null
+          uv run jupyter execute "${NOTEBOOK_FILE}"
         working-directory: ${{ env.NOTEBOOK_DIR }}
