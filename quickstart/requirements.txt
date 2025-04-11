@@ -1,0 +1,4 @@
+dbnl
+jupyter
+pandas[pyarrow]
+openai

@@ -1,0 +1,21 @@
+message_id,message,happiness_score,urgency_score
+0,I received the wrong item in my order. How can I get the correct one?,Happy,Medium
+1,My account was charged twice for the same transaction. Can you fix this?,Very Happy,Medium
+2,The product I received is damaged. What are my options for a replacement?,Neutral,Low
+3,"I need to cancel my order, but I don’t see the option on your website.",Very Happy,Critical
+4,"My package says delivered, but I never received it. Can you track it?",Very Happy,Low
+5,The app keeps crashing when I try to check out. Can you help?,Unhappy,Low
+6,I signed up for a subscription by mistake. How can I get a refund?,Neutral,High
+7,"My login credentials aren’t working, and I can’t reset my password.",Neutral,High
+8,I have a warranty issue with my device. How do I file a claim?,Neutral,High
+9,The discount code isn’t applying at checkout. Can you assist?,Very Happy,Medium
+10,"I was supposed to get my order yesterday, but it’s still not here.",Happy,Critical
+11,I need to change the shipping address on my order. Is that possible?,Neutral,Critical
+12,"I signed up for your service, but I didn’t receive a confirmation email.",Very Happy,Critical
+13,I want to upgrade my plan but don’t know which one is best for me.,Unhappy,Critical
+14,"My bank declined my payment, but I have enough funds. What do I do?",Happy,High
+15,Your customer support number isn’t working. How else can I reach you?,Unhappy,Medium
+16,I got a defective product and need a refund. How do I start the process?,Happy,Medium
+17,I need an invoice for my purchase for reimbursement purposes.,Very Happy,High
+18,I accidentally ordered the wrong size. Can I exchange it?,Very Unhappy,Medium
+19,Your live chat feature isn’t responding. Is there another way to get help?,Happy,High
