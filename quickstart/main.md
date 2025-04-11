@@ -35,17 +35,9 @@ project = dbnl.get_or_create_project(name=f"hello-world-demo-{now}")
 # Submit run, set it as baseline, then submit another run, and start a test session
 run = dbnl.report_run_with_results(project=project, display_name="Dataset 1 Run", column_data=dataset_1.reset_index())
 dbnl.set_run_as_baseline(run=run)
-run = dbnl.report_run_with_results_and_start_test_session(project=project, display_name="Dataset 2 Run", column_data=dataset_2.reset_index())
+run = dbnl.report_run_with_results(project=project, display_name="Dataset 2 Run", column_data=dataset_2.reset_index())
 ```
 
-
-```python
-
-# Submit run, set it as baseline, then submit another run, and start a test session
-run = dbnl.report_run_with_results(project=project, display_name="Dataset 1 Run", column_data=dataset_1.reset_index())
-dbnl.set_run_as_baseline(run=run)
-run = dbnl.report_run_with_results_and_start_test_session(project=project, display_name="Dataset 2 Run", column_data=dataset_2.reset_index())
-```
 
 ## Verify your project is on the website, which will complete the quickstart.
 Click on one of the run urls displayed above to see the created run in `dbnl`
