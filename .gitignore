@@ -1,0 +1,8 @@
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Template files
+!*template*
+
+# Ruff
+.ruff_cache/

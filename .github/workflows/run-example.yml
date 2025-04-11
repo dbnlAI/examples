@@ -1,0 +1,90 @@
+name: Run Example (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      notebook_dir:
+        required: true
+        type: string
+      notebook_file:
+        required: true
+        type: string
+      python_version:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      runs_on:
+        required: true
+        type: string
+      package_spec:
+        required: true
+        type: string
+        description: "The full package specification to use (e.g., 'dbnl[eval]', 'dbnl', or a Git URL)"
+      branch:
+        required: true
+        type: string
+        description: "The branch to checkout of the examples repository"
+
+jobs:
+  run-notebook:
+    name: "${{ inputs.environment }} | ${{ inputs.python_version }} | ${{ inputs.notebook_dir }}/${{ inputs.notebook_file }} - ${{ github.run_id }}"
+    runs-on: ${{ inputs.runs_on }}
+    environment: ${{ inputs.environment }}
+    env:
+      ENVIRONMENT: ${{ inputs.environment }}
+      NOTEBOOK_DIR: ${{ inputs.notebook_dir }}
+      NOTEBOOK_FILE: ${{ inputs.notebook_file }}
+      PYTHON_VERSION: ${{ inputs.python_version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.4.x"
+          python-version: ${{ inputs.python_version }}
+
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_DBNL_SDK }}
+
+      - name: Additional SSH Setup
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          echo "Setup additional SSH configuration for dev environment"
+
+      - name: Install Dependencies
+        run: |
+          # Determine which package specification to use
+          if grep -q "dbnl\[eval\]" requirements.txt; then
+            OLD_SPEC="dbnl\[eval\]"
+          elif grep -q "^dbnl" requirements.txt; then
+            OLD_SPEC="dbnl"
+          else
+            echo "Error: No dbnl package found in requirements.txt"
+            exit 1
+          fi
+
+          # Replace the package with the new specification
+          sed "s|$OLD_SPEC|${{ inputs.package_spec }}|" requirements.txt > requirements.tmp
+          mv requirements.tmp requirements.txt
+          echo "Package specification updated to: ${{ inputs.package_spec }} in ${{ env.NOTEBOOK_DIR }}/requirements.txt"
+
+          uv pip install -r requirements.txt
+        working-directory: ${{ env.NOTEBOOK_DIR }}
+
+      - name: Execute Notebook
+        env:
+          DBNL_API_TOKEN: ${{ secrets.DBNL_API_TOKEN }}
+          DBNL_API_URL: ${{ vars.DBNL_API_URL }}
+          DBNL_APP_URL: ${{ vars.DBNL_APP_URL }}
+          DBNL_LOG_LEVEL: DEBUG
+        run: |
+          uv run jupyter execute "${NOTEBOOK_FILE}"
+        working-directory: ${{ env.NOTEBOOK_DIR }}

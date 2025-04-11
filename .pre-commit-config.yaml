@@ -1,0 +1,25 @@
+repos:
+-   repo: https://github.com/mwouts/jupytext
+    rev: v1.16.7
+    hooks:
+    -   id: jupytext
+        args: [--sync, --pipe, black]
+        additional_dependencies: [jupyter, black==23.3.0]
+
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.3
+    hooks:
+    -   id: ruff
+        args: [--fix, --line-length=88]
+    -   id: ruff-format
+        args: [--line-length=88]
+
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+    -   id: mixed-line-ending
+        args: [--fix=lf]
+    -   id: trailing-whitespace
+        exclude: ^.*\.md$
+    -   id: check-yaml
+    -   id: check-added-large-files
