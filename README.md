@@ -1,4 +1,4 @@
-![Distributional](distributional-logo.png)
+![Distributional](distributional_logo.png)
 
 # Examples
 
