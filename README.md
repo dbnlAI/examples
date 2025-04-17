@@ -1,3 +1,5 @@
+![Distributional](distributional_logo.png)
+
 # Examples
 
 This repository contains example Jupyter notebooks demonstrating specific `dbnl` usage. Each example is organized in its own folder with its own dependencies and requirements. In most cases, the examples will exist in our [documentation](https://docs.dbnl.com).
