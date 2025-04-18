@@ -88,3 +88,16 @@ jobs:
         run: |
           uv run jupyter execute "${NOTEBOOK_FILE}"
         working-directory: ${{ env.NOTEBOOK_DIR }}
+
+      - name: Slack a Cron Failure
+        if: failure() && github.event_name == 'schedule'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL: ${{ secrets.EXAMPLES_ALERTS_SLACK_CHANNEL_ID }}
+          ACTIONS_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BRANCH: ${{ inputs.branch }}
+        run: |
+          curl -X POST -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+          -H "Content-type: application/json; charset=utf-8" \
+          --data '{"channel":"'"${SLACK_CHANNEL}"'","text":"*Environment*: '"${ENVIRONMENT}"'\n*Branch*: '"${BRANCH}"'\n*Example*: '"${NOTEBOOK_DIR}"'\n*URL*: '"${ACTIONS_URL}"'"}' \
+          https://slack.com/api/chat.postMessage
