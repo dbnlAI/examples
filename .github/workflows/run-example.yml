@@ -50,7 +50,7 @@ jobs:
       - name: Add SSH Key
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_DBNL_SDK }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_DBNL_SDK_TEST }}
 
       - name: Additional SSH Setup
         run: |
@@ -90,7 +90,7 @@ jobs:
         working-directory: ${{ env.NOTEBOOK_DIR }}
 
       - name: Slack a Cron Failure
-        if: failure() && github.event_name == 'schedule'
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_CHANNEL: ${{ secrets.EXAMPLES_ALERTS_SLACK_CHANNEL_ID }}
