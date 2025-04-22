@@ -11,7 +11,7 @@ jupyter:
 ---
 
 ```python
-from auxiliaries import x
+from auxiliaries import *
 ```
 
 # Distributional AI Testing Demo
