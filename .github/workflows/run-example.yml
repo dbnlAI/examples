@@ -99,5 +99,5 @@ jobs:
         run: |
           curl -X POST -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
           -H "Content-type: application/json; charset=utf-8" \
-          --data '{"channel":"'"${SLACK_CHANNEL}"'","text":"*Environment*: '"${ENVIRONMENT}"'\n*Branch*: '"${BRANCH}"'\n*Example*: '"${NOTEBOOK_DIR}"'\n*URL*: '"${ACTIONS_URL}"'"}' \
+          --data '{"channel":"'"${SLACK_CHANNEL}"'","text":"*Environment*: '"${ENVIRONMENT}"'\n*Branch*: '"${BRANCH}"'\n*Example Directory*: '"${NOTEBOOK_DIR}"'\n*URL*: '"${ACTIONS_URL}"'"}' \
           https://slack.com/api/chat.postMessage
