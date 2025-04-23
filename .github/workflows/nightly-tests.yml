@@ -71,3 +71,39 @@ jobs:
     concurrency:
       group: prod-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
       cancel-in-progress: true
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [dev, staging, prod]
+    steps:
+    - name: Slack a Cron Failure
+      if: always()
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_CHANNEL: ${{ secrets.EXAMPLES_ALERTS_SLACK_CHANNEL_ID }}
+        ACTIONS_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        BRANCH: ${{ inputs.branch }}
+      run: |
+        echo "Preparing Slack notification..."
+        DEV_RESULT="${{ needs.dev.result }}"
+        STAGING_RESULT="${{ needs.staging.result }}"
+        PROD_RESULT="${{ needs.prod.result }}"
+
+        FAILED_ENVS=""
+
+        if [[ "$DEV_RESULT" == "failure" ]]; then
+          FAILED_ENVS+=" dev"
+        fi
+        if [[ "$STAGING_RESULT" == "failure" ]]; then
+          FAILED_ENVS+=" staging"
+        fi
+        if [[ "$PROD_RESULT" == "failure" ]]; then
+          FAILED_ENVS+=" prod"
+        fi
+
+        if [[ -n "$FAILED_ENVS" ]]; then
+          curl -X POST -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+          -H "Content-type: application/json; charset=utf-8" \
+          --data '{"channel":"'"${SLACK_CHANNEL}"'","text":"Failed *Environment(s): '"${FAILED_ENVS}"'\n*Branch*: '"${BRANCH}"'\n*URL*: '"${ACTIONS_URL}"'"}' \
+          https://slack.com/api/chat.postMessage
+        fi
