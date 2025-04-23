@@ -13,13 +13,13 @@ jupyter:
     name: python3
 ---
 
-The following is the notebook associated with the customer support demo, video available [here](https://www.youtube.com/watch?v=F2e9_UxyrVs)
-
 ```python
 from auxiliaries import *
 ```
 
 # Distributional AI Testing Demo
+
+#### The following is the notebook associated with the customer support demo, video available [here](https://www.youtube.com/watch?v=F2e9_UxyrVs)
 
 ### Multi-Component Customer Support Routing Model
 
