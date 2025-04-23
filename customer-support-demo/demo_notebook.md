@@ -2,13 +2,18 @@
 jupyter:
   jupytext:
     formats: ipynb,md
-    main_language: python
     text_representation:
       extension: .md
       format_name: markdown
       format_version: '1.3'
       jupytext_version: 1.16.7
+  kernelspec:
+    display_name: .venv
+    language: python
+    name: python3
 ---
+
+The following is the notebook associated with the customer support demo, video available [here](https://www.youtube.com/watch?v=F2e9_UxyrVs)
 
 ```python
 from auxiliaries import *
