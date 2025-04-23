@@ -104,6 +104,6 @@ jobs:
         if [[ -n "$FAILED_ENVS" ]]; then
           curl -X POST -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
           -H "Content-type: application/json; charset=utf-8" \
-          --data '{"channel":"'"${SLACK_CHANNEL}"'","text":"Failed *Environment(s): '"${FAILED_ENVS}"'\n*Branch*: '"${BRANCH}"'\n*URL*: '"${ACTIONS_URL}"'"}' \
+          --data '{"channel":"'"${SLACK_CHANNEL}"'","text":"Failed *Environment(s)*: '"${FAILED_ENVS}"'\n*Branch*: '"${BRANCH}"'\n*URL*: '"${ACTIONS_URL}"'"}' \
           https://slack.com/api/chat.postMessage
         fi
