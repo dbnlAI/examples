@@ -21,7 +21,7 @@ jobs:
       python_version: ${{ matrix.python_version }}
       environment: dev
       runs_on: dbnlai-dev
-      branch: dev
+      branch: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'dev' }}
       package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@main
     secrets: inherit
     concurrency:
@@ -43,7 +43,7 @@ jobs:
       python_version: ${{ matrix.python_version }}
       environment: staging
       runs_on: dbnlai-staging
-      branch: release-0.22
+      branch: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'release-0.22' }}
       package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22
     secrets: inherit
     concurrency:
@@ -65,7 +65,7 @@ jobs:
       python_version: ${{ matrix.python_version }}
       environment: prod
       runs_on: ubuntu-latest
-      branch: main
+      branch: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'main' }}
       package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22
     secrets: inherit
     concurrency:
@@ -82,7 +82,7 @@ jobs:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         SLACK_CHANNEL: ${{ secrets.EXAMPLES_ALERTS_SLACK_CHANNEL_ID }}
         ACTIONS_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        BRANCH: ${{ inputs.branch }}
+        BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'main' }}
       run: |
         echo "Preparing Slack notification..."
         DEV_RESULT="${{ needs.dev.result }}"
