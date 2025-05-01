@@ -31,6 +31,7 @@ jobs:
   run-notebook:
     name: "${{ inputs.environment }} | ${{ inputs.python_version }} | ${{ inputs.notebook_dir }}/${{ inputs.notebook_file }} - ${{ github.run_id }}"
     runs-on: ${{ inputs.runs_on }}
+    timeout-minutes: 20
     environment: ${{ inputs.environment }}
     env:
       ENVIRONMENT: ${{ inputs.environment }}
