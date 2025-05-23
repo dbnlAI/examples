@@ -43,8 +43,8 @@ jobs:
       python_version: ${{ matrix.python_version }}
       environment: staging
       runs_on: dbnlai-staging
-      branch: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'release-0.22' }}
-      package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22
+      branch: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'release-0.23' }}
+      package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.23
     secrets: inherit
     concurrency:
       group: staging-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
@@ -66,7 +66,7 @@ jobs:
       environment: prod
       runs_on: ubuntu-latest
       branch: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'main' }}
-      package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.22
+      package_spec: dbnl@git+ssh://git@github.com/dbnlAI/dbnl-sdk.git@release-0.23
     secrets: inherit
     concurrency:
       group: prod-${{ matrix.python_version }}-${{ matrix.notebook_dir }}/${{ matrix.notebook_file }}
