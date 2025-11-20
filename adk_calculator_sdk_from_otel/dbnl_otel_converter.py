@@ -3,6 +3,7 @@ import pandas as pd
 import json
 from collections import defaultdict
 
+
 def group_resource_spans_by_trace_id(raw_spans_series):
     """
     raw_spans_series: pandas Series or any iterable of dicts like:
@@ -59,27 +60,32 @@ def group_resource_spans_by_trace_id(raw_spans_series):
             # group by scope to keep shape scope + spans[]
             by_scope = defaultdict(list)
             for info in scope_infos:
-                by_scope[json.dumps(info["scope"], sort_keys=True)].extend(info["spans"])
+                by_scope[json.dumps(info["scope"], sort_keys=True)].extend(
+                    info["spans"]
+                )
 
             for scope_json, spans in by_scope.items():
                 scope = json.loads(scope_json)
-                scopeSpans.append({
-                    "scope": scope,
-                    "spans": spans,
-                })
+                scopeSpans.append(
+                    {
+                        "scope": scope,
+                        "spans": spans,
+                    }
+                )
 
             # All scopeSpans share the same resource
             resource = json.loads(_res_key)
-            resourceSpans.append({
-                "resource": resource,
-                "scopeSpans": scopeSpans,
-            })
+            resourceSpans.append(
+                {
+                    "resource": resource,
+                    "scopeSpans": scopeSpans,
+                }
+            )
 
-        traces_by_id[trace_id] = {
-            "resourceSpans": resourceSpans
-        }
+        traces_by_id[trace_id] = {"resourceSpans": resourceSpans}
 
     return traces_by_id
+
 
 def get_from_attrs(attrs, key):
     if attrs is None or (isinstance(attrs, float) and pd.isna(attrs)):
@@ -106,6 +112,7 @@ def get_from_attrs(attrs, key):
 
     return None
 
+
 def dbnl_df_from_otel_file(path):
     with open(path, "r") as f:
         raw_spans = pd.Series([json.loads(line) for line in f])
@@ -120,8 +127,7 @@ def dbnl_df_from_otel_file(path):
     # input: from FIRST span's attributes
     inputs = grouped_traces.apply(
         lambda g: get_from_attrs(
-            g.sort_values("start_time").iloc[0]["attributes"],
-            "input.value"
+            g.sort_values("start_time").iloc[0]["attributes"], "input.value"
         ),
         include_groups=False,
     ).rename("input")
@@ -129,8 +135,7 @@ def dbnl_df_from_otel_file(path):
     # output: from LAST span's attributes
     outputs = grouped_traces.apply(
         lambda g: get_from_attrs(
-            g.sort_values("end_time").iloc[-1]["attributes"],
-            "output.value"
+            g.sort_values("end_time").iloc[-1]["attributes"], "output.value"
         ),
         include_groups=False,
     ).rename("output")

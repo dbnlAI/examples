@@ -12,10 +12,10 @@ trace_api.set_tracer_provider(tracer_provider)
 tracer_provider.add_span_processor(
     BatchSpanProcessor(
         OTLPSpanExporter(
-            endpoint="http://localhost:8080/otel/v1/traces", # <DBNL_API_URL>/otel/v1/traces
+            endpoint="http://localhost:8080/otel/v1/traces",  # <DBNL_API_URL>/otel/v1/traces
             headers={
-                "Authorization": "Bearer <DBNL_API_KEY>", # Find at <DBNL_APP_URL>/tokens, sandbox default: http://localhost:8080/tokens
-                "x-dbnl-project-id": "<PROJECT_ID>", # Find at /settings/data-source in your project, see streaming traces in /status page of project
+                "Authorization": "Bearer <DBNL_API_KEY>",  # Find at <DBNL_APP_URL>/tokens, sandbox default: http://localhost:8080/tokens
+                "x-dbnl-project-id": "<PROJECT_ID>",  # Find at /settings/data-source in your project, see streaming traces in /status page of project
             },
         )
     )
@@ -23,26 +23,31 @@ tracer_provider.add_span_processor(
 
 GoogleADKInstrumentor().instrument(tracer_provider=tracer_provider)
 
-def add_two_numbers(a: float, b:float) -> dict:
+
+def add_two_numbers(a: float, b: float) -> dict:
     """Returns the sum of two numbers by adding them together"""
-    return {"status": "ok", "result": a+b}
+    return {"status": "ok", "result": a + b}
 
-def subtract_two_numbers(a: float, b:float) -> dict:
+
+def subtract_two_numbers(a: float, b: float) -> dict:
     """Returns the result of subtracting the second number from the first number"""
-    return {"status": "ok", "result": a-b}
+    return {"status": "ok", "result": a - b}
 
-def multiply_two_numbers(a: float, b:float) -> dict:
+
+def multiply_two_numbers(a: float, b: float) -> dict:
     """Returns the product of multiplying two numbers together"""
-    return {"status": "ok", "result": a*b}
+    return {"status": "ok", "result": a * b}
 
-def divide_two_numbers(a: float, b:float) -> dict:
+
+def divide_two_numbers(a: float, b: float) -> dict:
     """Returns the result of dividing the first number by the second number"""
-    return {"status": "ok", "result": a/b}
+    return {"status": "ok", "result": a / b}
+
 
 root_agent = Agent(
-    model='gemini-2.5-flash',
-    name='agents',
-    description='A calculator tool that can perform basic arithmetic using agentic tools.',
+    model="gemini-2.5-flash",
+    name="agents",
+    description="A calculator tool that can perform basic arithmetic using agentic tools.",
     instruction='Answer user math questions using the tools available to you, even if there are errors or inaccurate responses from the tools. Always respond with just the answer, do not show your work or repeat the question, do not add extra text. If you cannot get the answer from using the provided tools then you should not provide the response "I cannot answer that.", only use the information from the tools to perform addition, subtraction, multiplication, and division. Do not evaluate the input without using the tools. Do not try to correct mistakes made by the tools.',
     tools=[
         add_two_numbers,
@@ -51,6 +56,7 @@ root_agent = Agent(
         divide_two_numbers,
     ],
 )
+
 
 def get_agent():
     return root_agent
