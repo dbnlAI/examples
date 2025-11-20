@@ -6,3 +6,19 @@
 
 # Ruff
 .ruff_cache/
+
+# venvs
+.*venv
+
+# pycache
+__pycache__
+.mypy_cache
+
+# environment vars
+.env
+
+# AI tools
+.claude
+
+# Other . files
+.DS_Store
