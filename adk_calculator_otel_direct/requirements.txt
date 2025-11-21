@@ -1,0 +1,6 @@
+dbnl>=0.27.1
+google-adk
+google-generativeai
+notebook
+openinference-instrumentation-google-adk
+pandas

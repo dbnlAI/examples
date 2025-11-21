@@ -19,11 +19,11 @@ Log into the sandbox at [http://localhost:8080](http://localhost:8080) using
 
 ## Create a Model Connection
 
-Every DBNL Project requires a [Model Connection](../configuration/model-connections.md) to create LLM-as-judge metrics and perform analysis.
+Every DBNL Project requires a [Model Connection](https://docs.dbnl.com/configuration/model-connections) to create LLM-as-judge metrics and perform analysis.
 
 1. Click on the "Model Connections" tab on the left panel of [http://localhost:8080](http://localhost:8080)
 2. Click "+ Add Model Connection"
-3. [Create a Model Connection](../configuration/model-connections.md#creating-a-model-connection) with the name: `quickstart_model`
+3. [Create a Model Connection](https://docs.dbnl.com/configuration/model-connections#creating-a-model-connection) with the name: `quickstart_model`
 
 ## Create a project and upload example data using the SDK
 
@@ -32,7 +32,7 @@ pip install notebook # if you don't already have jupyter
 jupyter notebook DBNL-quickstart.ipynb
 ```
 
-After uploading, the data pipeline will run automatically. Depending on the latency of your [Model Connection](../configuration/model-connections.md), it may take several minutes to complete all steps (Ingest → Enrich → Analyze → Publish). Check the Status page to monitor progress.
+After uploading, the data pipeline will run automatically. Depending on the latency of your [Model Connection](https://docs.dbnl.com/configuration/model-connections), it may take several minutes to complete all steps (Ingest → Enrich → Analyze → Publish). Check the Status page to monitor progress.
 
 ## Discover, investigate, and track behavioral signals
 
