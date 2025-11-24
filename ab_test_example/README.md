@@ -70,7 +70,7 @@ curl -o data/traces_mix.jsonl https://dbnl-demo-public.s3.us-east-1.amazonaws.co
 curl -o data/traces_v1_only.jsonl https://dbnl-demo-public.s3.us-east-1.amazonaws.com/ab_test_example/traces_v1_only.jsonl
 ```
 
-Now we can finish uploading this simulated data and observe the multiplication issue has been resolved.
+Now we can finish uploading this simulated data and observe the multiplication issue has been resolved back in the notebook.
 
 ```bash
 notebook otel_data_load_and_augment.ipynb
