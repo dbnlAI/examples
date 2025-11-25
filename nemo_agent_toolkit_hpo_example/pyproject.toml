@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nat-calculator"
+version = "0.1.0"
+description = "Google ADK Calculator Agent with NeMo Agent Toolkit HPO"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11,<3.14"
+
+dependencies = [
+    "nvidia-nat[opentelemetry]>=1.3.0",
+    "google-adk>=0.3.0",
+    "google-genai>=1.0.0",
+    "google-generativeai>=0.8.0",
+    "litellm>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yaml", "*.yml", "*.json"]
+
+# Entry point for NAT to discover our custom functions and workflows
+[project.entry-points.'nat.components']
+nat_calculator = "nat_calculator.register"

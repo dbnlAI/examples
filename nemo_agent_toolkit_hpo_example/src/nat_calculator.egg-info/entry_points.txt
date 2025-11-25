@@ -1,0 +1,2 @@
+[nat.components]
+nat_calculator = nat_calculator.register

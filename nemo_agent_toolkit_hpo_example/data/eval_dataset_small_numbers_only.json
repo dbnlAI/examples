@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "question": "What is 5 + 3?",
+    "ground_truth": "8"
+  },
+  {
+    "id": "2",
+    "question": "What is 12 - 7?",
+    "ground_truth": "5"
+  },
+  {
+    "id": "3",
+    "question": "What is 6 * 4?",
+    "ground_truth": "24"
+  },
+  {
+    "id": "4",
+    "question": "What is 20 / 4?",
+    "ground_truth": "5"
+  },
+  {
+    "id": "5",
+    "question": "What is 15 + 22?",
+    "ground_truth": "37"
+  },
+  {
+    "id": "6",
+    "question": "What is 40 - 28?",
+    "ground_truth": "12"
+  },
+  {
+    "id": "7",
+    "question": "What is 8 * 5?",
+    "ground_truth": "40"
+  },
+  {
+    "id": "8",
+    "question": "What is 36 / 9?",
+    "ground_truth": "4"
+  },
+  {
+    "id": "9",
+    "question": "What is 3.5 + 2.5?",
+    "ground_truth": "6"
+  },
+  {
+    "id": "10",
+    "question": "What is 10.5 - 4.3?",
+    "ground_truth": "6.2"
+  },
+  {
+    "id": "11",
+    "question": "What is 2.5 * 4?",
+    "ground_truth": "10"
+  },
+  {
+    "id": "12",
+    "question": "What is 15 / 2?",
+    "ground_truth": "7.5"
+  },
+  {
+    "id": "13",
+    "question": "What is 39 + 1?",
+    "ground_truth": "40"
+  },
+  {
+    "id": "14",
+    "question": "What is 18 - 30?",
+    "ground_truth": "-12"
+  },
+  {
+    "id": "15",
+    "question": "What is 5 * 7?",
+    "ground_truth": "35"
+  },
+  {
+    "id": "16",
+    "question": "What is 32 / 8?",
+    "ground_truth": "4"
+  },
+  {
+    "id": "17",
+    "question": "Calculate 25 + 12?",
+    "ground_truth": "37"
+  },
+  {
+    "id": "18",
+    "question": "Subtract 35 from 40?",
+    "ground_truth": "5"
+  },
+  {
+    "id": "19",
+    "question": "Multiply 6 by 6?",
+    "ground_truth": "36"
+  },
+  {
+    "id": "20",
+    "question": "Divide 28 by 7?",
+    "ground_truth": "4"
+  }
+]

@@ -17,3 +17,4 @@ This repository contains examples that demonstrate specific usage of the Distrib
 
 ### Tutorials
 - [ab_test_example](ab_test_example/README.md): This example shows how DBNL behavioral analytics can help discover issues and resolve them through AB testing agents.
+- [nemo_agent_toolkit_hpo_example](nemo_agent_toolkit_hpo_example/README.md): This example demonstrates using NVIDIA's NeMo Agent Toolkit (NAT) for hyperparameter optimization (HPO) on a calculator agent, with DBNL providing behavioral analytics to discover issues in production.
