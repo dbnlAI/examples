@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "question": "What is 55 + 33?",
+    "ground_truth": "88"
+  },
+  {
+    "id": "2",
+    "question": "What is 92 - 47?",
+    "ground_truth": "45"
+  },
+  {
+    "id": "3",
+    "question": "What is 12 * 8?",
+    "ground_truth": "96"
+  },
+  {
+    "id": "4",
+    "question": "What is 100 / 4?",
+    "ground_truth": "25"
+  },
+  {
+    "id": "5",
+    "question": "What is 67 + 28?",
+    "ground_truth": "95"
+  },
+  {
+    "id": "6",
+    "question": "What is 100 - 37?",
+    "ground_truth": "63"
+  },
+  {
+    "id": "7",
+    "question": "What is 9 * 9?",
+    "ground_truth": "81"
+  },
+  {
+    "id": "8",
+    "question": "What is 84 / 12?",
+    "ground_truth": "7"
+  },
+  {
+    "id": "9",
+    "question": "What is 33.5 + 66.5?",
+    "ground_truth": "100"
+  },
+  {
+    "id": "10",
+    "question": "What is 75.8 - 25.3?",
+    "ground_truth": "50.5"
+  },
+  {
+    "id": "11",
+    "question": "What is 12.5 * 8?",
+    "ground_truth": "100"
+  },
+  {
+    "id": "12",
+    "question": "What is 90 / 4?",
+    "ground_truth": "22.5"
+  },
+  {
+    "id": "13",
+    "question": "What is 99 + 1?",
+    "ground_truth": "100"
+  },
+  {
+    "id": "14",
+    "question": "What is 50 - 75?",
+    "ground_truth": "-25"
+  },
+  {
+    "id": "15",
+    "question": "What is 11 * 9?",
+    "ground_truth": "99"
+  },
+  {
+    "id": "16",
+    "question": "What is 81 / 9?",
+    "ground_truth": "9"
+  },
+  {
+    "id": "17",
+    "question": "Calculate 58 + 42?",
+    "ground_truth": "100"
+  },
+  {
+    "id": "18",
+    "question": "Subtract 45 from 100?",
+    "ground_truth": "55"
+  },
+  {
+    "id": "19",
+    "question": "Multiply 14 by 7?",
+    "ground_truth": "98"
+  },
+  {
+    "id": "20",
+    "question": "Divide 96 by 8?",
+    "ground_truth": "12"
+  }
+]

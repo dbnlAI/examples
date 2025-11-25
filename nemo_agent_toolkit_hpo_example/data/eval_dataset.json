@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "question": "What is 5 + 3?",
+    "ground_truth": "8"
+  },
+  {
+    "id": "2",
+    "question": "What is 12 - 7?",
+    "ground_truth": "5"
+  },
+  {
+    "id": "3",
+    "question": "What is 6 * 4?",
+    "ground_truth": "24"
+  },
+  {
+    "id": "4",
+    "question": "What is 20 / 4?",
+    "ground_truth": "5"
+  },
+  {
+    "id": "5",
+    "question": "What is 15 + 27?",
+    "ground_truth": "42"
+  },
+  {
+    "id": "6",
+    "question": "What is 100 - 37?",
+    "ground_truth": "63"
+  },
+  {
+    "id": "7",
+    "question": "What is 8 * 9?",
+    "ground_truth": "72"
+  },
+  {
+    "id": "8",
+    "question": "What is 144 / 12?",
+    "ground_truth": "12"
+  },
+  {
+    "id": "9",
+    "question": "What is 3.5 + 2.5?",
+    "ground_truth": "6"
+  },
+  {
+    "id": "10",
+    "question": "What is 10.5 - 4.3?",
+    "ground_truth": "6.2"
+  },
+  {
+    "id": "11",
+    "question": "What is 2.5 * 4?",
+    "ground_truth": "10"
+  },
+  {
+    "id": "12",
+    "question": "What is 15 / 2?",
+    "ground_truth": "7.5"
+  },
+  {
+    "id": "13",
+    "question": "What is 999 + 1?",
+    "ground_truth": "1000"
+  },
+  {
+    "id": "14",
+    "question": "What is 50 - 75?",
+    "ground_truth": "-25"
+  },
+  {
+    "id": "15",
+    "question": "What is 7 * 7?",
+    "ground_truth": "49"
+  },
+  {
+    "id": "16",
+    "question": "What is 81 / 9?",
+    "ground_truth": "9"
+  },
+  {
+    "id": "17",
+    "question": "Calculate 25 + 17",
+    "ground_truth": "42"
+  },
+  {
+    "id": "18",
+    "question": "Subtract 45 from 100",
+    "ground_truth": "55"
+  },
+  {
+    "id": "19",
+    "question": "Multiply 11 by 11",
+    "ground_truth": "121"
+  },
+  {
+    "id": "20",
+    "question": "Divide 200 by 8",
+    "ground_truth": "25"
+  }
+]
