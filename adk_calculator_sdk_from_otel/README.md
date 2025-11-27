@@ -44,14 +44,14 @@ Log into the sandbox at [http://localhost:8080](http://localhost:8080) using
 
 ```bash
 export GEMINI_API_KEY=<YOUR_KEY_HERE>
-otelcol --config otel-collector-config.yaml
-python3 simulate_usage.py --max-traces 500 # This will take about an hour
+otelcol --config otel-collector-config.yaml & # kill any running otelcol first
+python3 simulate_usage.py --max-traces 20
 ```
 
-Or, grab data from 500 traces already computed.
+Or, grab data from 1000 traces already computed.
 
 ```bash
-cp data/traces.jsonl .
+curl -o traces.jsonl https://dbnl-demo-public.s3.us-east-1.amazonaws.com/adk_calculator_sdk_from_otel/traces.jsonl
 ```
 
 Each line of the `traces.jsonl` file contains a JSON string in OTEL format using the [Open Inference](https://github.com/Arize-ai/openinference) semantic convention.
@@ -87,7 +87,7 @@ notebook otel_data_load_only.ipynb
 Once the data is loaded into a pandas dataframe we can also augment it with more data like total cost, user feedback, expected outputs, or session information like whether the agent completed the task or the user took an action. Any extra columns added to the dataframe will be added to the logs as top level fields during via the [DBNL Data Pipeline](https://docs.dbnl.com/configuration/data-pipeline) process.
 
 In this example notebook we will show adding
-- An estimated `total_cost` (part of the DBNL Semantic Convention)
+- An estimated `total_cost` per trace (part of the DBNL Semantic Convention)
 
 ```bash
 notebook otel_data_load_and_augment.ipynb

@@ -1,4 +1,7 @@
-# Jupyter Notebook
+# Data files (download from S3 instead)
+*.jsonl
+
+# Jupyter Notebook Checkpoints
 .ipynb_checkpoints
 
 # Template files
@@ -8,7 +11,7 @@
 .ruff_cache/
 
 # venvs
-.*venv
+.*venv*
 
 # pycache
 __pycache__
