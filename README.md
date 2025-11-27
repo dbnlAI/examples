@@ -16,5 +16,6 @@ This repository contains examples that demonstrate specific usage of the Distrib
 - [sdk_from_langfuse_export](sdk_from_langfuse_export/README.md): This examples shows how to transform langfuse exported traces and observation jsonl files into the [DBNL Semantic Convention](https://docs.dbnl.com/configuration/dbnl-semantic-convention), augment the resulting dataframe, and upload it to DBNL.
 
 ### Tutorials
+- [adk_calculator_tutorial](adk_calculator_tutorial/README.md): This examples simulated two full weeks of data of the calculator agent above with the full [DBNL Semantic Convention](https://docs.dbnl.com/configuration/dbnl-semantic-convention).
 - [ab_test_example](ab_test_example/README.md): This example shows how DBNL behavioral analytics can help discover issues and resolve them through AB testing agents.
 - [nemo_agent_toolkit_hpo_example](nemo_agent_toolkit_hpo_example/README.md): This example demonstrates using NVIDIA's NeMo Agent Toolkit (NAT) for hyperparameter optimization (HPO) on a calculator agent, with DBNL providing behavioral analytics to discover issues in production.
