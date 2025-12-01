@@ -1,6 +1,8 @@
-# Google ADK Calculator DBNL Semantic Convention Extractor
+# Google ADK Calculator A/B Test Example
 
 This example shows how to run an A/B test driven by behavioral analytics.
+
+![AB_gif](https://docs.dbnl.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2FexM6vU0DHdLH7TyRgvH9%2Fblobs%2FysbW5rcjQhNYYsl5QNmz%2Fab_demo_small_opt.gif&width=768&dpr=2&quality=100&sign=fa026fbf&sv=2)
 
 First, we instrument the collection of data required by the [DBNL Semantic Convention](https://docs.dbnl.com/configuration/dbnl-semantic-convention) automatically from a simple calculator agent using the [Google ADK](https://google.github.io/adk-docs/) through a local OTEL collector writing raw spans to file in the [Open Inference](https://github.com/Arize-ai/openinference) semantic convention, which can then be easily augmented and uploaded to DBNL via the Python SDK.
 
@@ -54,11 +56,9 @@ After loading this first batch of data we can explore the project and discover t
 
 ```bash
 pkill -SIGTERM otelcol && otelcol --config otel-collector-config.yaml & # We need to restart the collector since we moved the traces.jsonl file
-otelcol --config otel-collector-config.yaml
 python3 simulate_usage.py --version_split_ratio 0.5 --max-traces 300 # Simulating 3 days of data of 50% v0 vs v1
 mv traces.jsonl data/traces_mix.jsonl
 pkill -SIGTERM otelcol && otelcol --config otel-collector-config.yaml & # We need to restart the collector since we moved the traces.jsonl file
-otelcol --config otel-collector-config.yaml
 python3 simulate_usage.py --version_split_ratio 0.0 --max-traces 300 # Simulating 3 days of data of 100% v1
 mv traces.jsonl data/traces_v1_only.jsonl
 ```

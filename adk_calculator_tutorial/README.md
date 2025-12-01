@@ -1,6 +1,8 @@
-# Google ADK Calculator DBNL Semantic Convention Extractor
+# Google ADK Calculator Two Week Tutorial
 
 This tutorial simulates two weeks of data at ~100 traces per day of the Google ADK Calculator from the data ingestion examples. It introduces two small bugs in the `agent.py` file to be discovered in 
+
+![calc_gif](https://content.gitbook.com/content/exM6vU0DHdLH7TyRgvH9/blobs/DM31YR5Ir77FyhTGVJsA/calc_demo_small_opt.gif)
 
 Data required by the [DBNL Semantic Convention](https://docs.dbnl.com/configuration/dbnl-semantic-convention) is automatically collected from the [Google ADK](https://google.github.io/adk-docs/) agent through a local OTEL collector writing raw spans to file in the [Open Inference](https://github.com/Arize-ai/openinference) semantic convention, which can then be easily augmented and uploaded to DBNL via the Python SDK. For more information see the [SDK from Otel Example](../adk_calculator_sdk_from_otel/README.md).
 

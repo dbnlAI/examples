@@ -2,6 +2,8 @@
 
 This example demonstrates using NVIDIA's NeMo Agent Toolkit (NAT) and DBNL to perform behavioral analytics to discover issues in production.
 
+![AB_test_gif](https://content.gitbook.com/content/exM6vU0DHdLH7TyRgvH9/blobs/4ElwsGRSwpnrX1ACLmXj/hpo_demo_small_opt.gif)
+
 This example follows the following path:
 1. Start with a simple calculator agent, which is similar to our Google ADK calculator agents from the other examples, but wrapped in NAT.
 2. Observe that the calculator performs well offline with the default `configs/config_v0.yaml` with respect to a simple dataset `data/eval_dataset_small_numbers_only.json` that we think is representative of production data _before_ we actually deploy to production.
