@@ -1,4 +1,4 @@
-# Google ADK Calculator DBNL Semantic Convention Extractor
+# DBNL Data Ingestion Example - Direct from OTEL
 
 This example shows how to instrument a simple calculator agent using the [Google ADK](https://google.github.io/adk-docs/) to send OTEL traces directly to your DBNL deployment  using the built in trace collector.
 

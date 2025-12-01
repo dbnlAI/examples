@@ -1,6 +1,8 @@
-# Google ADK Calculator DBNL Semantic Convention Extractor
+# DBNL Data Ingestion Example - Manually Constructing JSON Spans
 
 This example shows how you can instrument a Google ADK agent to extract all of the information needed for the complete DBNL Semantic Convention and put it into a local `jsonl` file in just a few lines of code.
+
+Note: This path is _not recommended_ unless you have a mature ETL pipeline, but not OTEL, which requires you to manually join data to create spans.
 
 ```python
 from opentelemetry import trace as trace_api
