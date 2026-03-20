@@ -3,6 +3,23 @@ import pandas as pd
 import json
 
 
+def inject_root_span_attrs(otlp_dict, attrs):
+    """Inject custom key-value pairs into the root span's attributes in place."""
+    for rs in otlp_dict.get("resourceSpans", []):
+        for ss in rs.get("scopeSpans", []):
+            for span in ss.get("spans", []):
+                if not span.get("parentSpanId"):  # root span has no parent
+                    span_attrs = span.setdefault("attributes", [])
+                    for key, val in attrs.items():
+                        if val is None or val != val:  # None or NaN
+                            continue
+                        if isinstance(val, str):
+                            span_attrs.append({"key": key, "value": {"stringValue": val}})
+                        elif isinstance(val, (int, float)):
+                            span_attrs.append({"key": key, "value": {"doubleValue": float(val)}})
+                    return
+
+
 def get_from_attrs(attrs, key):
     if attrs is None or (isinstance(attrs, float) and pd.isna(attrs)):
         return None
@@ -11,17 +28,14 @@ def get_from_attrs(attrs, key):
     if isinstance(attrs, dict):
         return attrs.get(key)
 
-    # Case 2: list[...] – could be dicts or tuples
     if isinstance(attrs, list):
         for item in attrs:
-            # list of dicts like {"key": "...", "value": {"stringValue": "..."}}
             if isinstance(item, dict):
                 if item.get("key") == key:
                     val = item.get("value")
                     if isinstance(val, dict) and "stringValue" in val:
                         return val["stringValue"]
                     return val
-            # list of tuples like ("input.value", "…")
             elif isinstance(item, tuple) and len(item) >= 2:
                 if item[0] == key:
                     return item[1]
@@ -30,13 +44,18 @@ def get_from_attrs(attrs, key):
 
 
 def dbnl_df_from_otel_file(path):
+    """Load an OTLP JSONL file.
+
+    Returns:
+        raw_series: pd.Series of raw OTLP JSON dicts (one per trace)
+        flat_df: DataFrame with timestamp, input, output, spans, trace_id
+    """
     with open(path, "r") as f:
-        raw_spans = pd.Series([json.loads(line) for line in f])
+        raw_series = pd.Series([json.loads(line) for line in f])
 
-    df = dbnl.flatten_otlp_traces_data(raw_spans)
+    flat_df = dbnl.flatten_otlp_traces_data(raw_series)
 
-    # Extract trace_id from first span of each grouped trace
-    dbnl_spans = dbnl.convert_otlp_traces_data(raw_spans)
-    df["trace_id"] = [spans[0]["trace_id"] for spans in dbnl_spans]
+    dbnl_spans = dbnl.convert_otlp_traces_data(raw_series)
+    flat_df["trace_id"] = [spans[0]["trace_id"] for spans in dbnl_spans]
 
-    return df
+    return raw_series, flat_df
